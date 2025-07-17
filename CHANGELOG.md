@@ -1,8 +1,7 @@
 # tabulon
 
-## 1.0.10
+## 0.0.1
 
 ### Patch Changes
 
-- changelog clear
-- 947e9fa: bump version
+- this our very first version
