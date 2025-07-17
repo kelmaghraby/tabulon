@@ -6,52 +6,19 @@ on:
       - main
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org/'
-
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v2
         with:
           version: 10.8.0
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Create version and changelog (if changesets exist)
-        run: pnpm run version
-
-      - name: Commit and push version/changelog
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "chore(release): version bump and changelog [skip ci]" || echo "No changes to commit"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          commit-message: 'chore(release): version bump and changelog [skip ci]'
-          title: 'chore(release): version bump and changelog'
-          body: 'Automated changes from release workflow'
-          branch: 'release-bot/update-changelog'
-          base: 'main'
-
-      - name: Build package
-        run: pnpm build
-
-      - name: Publish to npm
-        run: pnpm publish --access public --no-git-checks
+      - run: pnpm install
+      - run: pnpm build
+      - run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
