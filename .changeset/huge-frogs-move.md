@@ -2,4 +2,4 @@
 "tabulon": patch
 ---
 
-version
+bump version
