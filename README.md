@@ -1,5 +1,8 @@
 # Tabulon
 
+[![npm version](https://badge.fury.io/js/tabulon.svg)](https://www.npmjs.com/package/tabulon)
+
+
 > ⚡ A lightweight utility for interacting with HTML tables in [Playwright](https://playwright.dev) using logical selectors instead of brittle CSS chains.
 
 ---
@@ -29,3 +32,4 @@ pnpm add tabulon
 npm install tabulon
 # or
 yarn add tabulon
+
