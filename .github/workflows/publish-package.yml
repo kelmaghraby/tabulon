@@ -36,9 +36,17 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "chore(release): version bump and changelog [skip ci]" || echo "No changes to commit"
-          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: 'chore(release): version bump and changelog [skip ci]'
+          title: 'chore(release): version bump and changelog'
+          body: 'Automated changes from release workflow'
+          branch: 'release-bot/update-changelog'
+          base: 'main'
 
       - name: Build package
         run: pnpm build
