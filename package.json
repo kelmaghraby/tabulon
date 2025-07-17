@@ -1,6 +1,6 @@
 {
   "name": "tabulon",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Playwright utility for interacting with and extracting structured data from HTML tables using logical selectors.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "test": "playwright test",
-    "version": "changeset version && pnpm build",
+    "version": "changeset version",
     "release": "changeset publish"
   },
   "keywords": [
