@@ -14,6 +14,9 @@ export class TableInteractor {
     this.tableLocator = tableLocator;
   }
 
+  /**
+   * Ensures the table is visible before performing actions.
+   */
   private async ensureTableVisible(): Promise<void> {
     if (!this.tableVisible) {
       await this.tableLocator.waitFor({ state: 'visible' });
