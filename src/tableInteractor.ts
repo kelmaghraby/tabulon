@@ -1,0 +1,113 @@
+import { Locator } from '@playwright/test';
+import { TableRow, TableCell, TableData } from './types';
+
+/**
+ * Provides utilities to interact with HTML tables in Playwright tests.
+ */
+export class TableInteractor {
+  private tableLocator: Locator;
+  private headerLocators: Locator[] = [];
+  private headers: string[] = [];
+
+  constructor(tableLocator: Locator) {
+    this.tableLocator = tableLocator;
+  }
+
+  /**
+   * Initializes and stores the table headers.
+   */
+  public async initializeHeaders(): Promise<void> {
+    this.headerLocators = await this.tableLocator.locator('thead th').all();
+    this.headers = await Promise.all(
+      this.headerLocators.map(async (header) => {
+        const text = await header.textContent();
+        return text?.trim() || '';
+      })
+    );
+    this.headers = this.headers.filter(Boolean); // Remove empty headers
+  }
+
+  /**
+   * Finds the first row where any cell matches the given text or RegExp.
+   * @param searchText Text or RegExp to match
+   */
+  public async findRowByText(
+    searchText: string | RegExp
+  ): Promise<Locator | null> {
+    const rows = await this.tableLocator.locator('tbody tr').all();
+    for (const row of rows) {
+      const text = await row.textContent();
+      if (
+        text &&
+        (typeof searchText === 'string'
+          ? text.includes(searchText)
+          : searchText.test(text))
+      ) {
+        return row;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Gets a cell from a row by header name.
+   * Requires headers to be initialized first.
+   * @param rowLocator The row to query
+   * @param headerText Column header text
+   */
+  public async getCellByHeader(
+    rowLocator: Locator,
+    headerText: string
+  ): Promise<Locator> {
+    if (this.headers.length === 0) {
+      await this.initializeHeaders();
+    }
+    const index = this.headers.findIndex((h) => h === headerText.trim());
+    if (index === -1) {
+      throw new Error(`Header "${headerText}" not found.`);
+    }
+    return rowLocator.locator('td').nth(index);
+  }
+
+  /**
+   * Gets a cell from a row by column index (0-based).
+   * @param rowLocator The row to query
+   * @param index Column index (0-based)
+   */
+  public getCellByIndex(rowLocator: Locator, index: number): Locator {
+    return rowLocator.locator('td').nth(index);
+  }
+
+  /**
+   * Extracts all data from the table as an array of objects.
+   */
+  public async extractTableData(): Promise<TableData> {
+    if (this.headers.length === 0) {
+      await this.initializeHeaders();
+    }
+
+    const rowLocators = await this.tableLocator.locator('tbody tr').all();
+    const rows: { [key: string]: string }[] = [];
+
+    for (const rowLocator of rowLocators) {
+      const cellLocators = await rowLocator.locator('td').all();
+      const cellTexts = await Promise.all(
+        cellLocators.map((cell) => cell.textContent())
+      );
+      const row: { [key: string]: string } = {};
+      for (let i = 0; i < cellTexts.length; i++) {
+        const header = this.headers[i];
+        const cellText = cellTexts[i];
+        if (header && cellText !== null) {
+          row[header] = cellText.trim();
+        }
+      }
+      rows.push(row);
+    }
+
+    return {
+      headers: this.headers,
+      rows,
+    };
+  }
+}
