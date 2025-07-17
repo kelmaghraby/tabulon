@@ -46,7 +46,7 @@ test.describe('Tabulon TableInteractor', () => {
     expect(row).not.toBeNull();
 
     if (row) {
-      const statusCell = table.getCellByIndex(row, 2);
+      const statusCell = await table.getCellByIndex(row, 2);
       const statusText = await statusCell.textContent();
       expect(statusText?.trim()).toBe('Inactive');
     }
