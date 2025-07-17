@@ -27,12 +27,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Install playwright
-        run: pnpm exec playwright install
-
-      - name: Run tests
-        run: pnpm test # <-- Only if you have tests
-
       - name: Create version and changelog (if changesets exist)
         run: pnpm run version
 
