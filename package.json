@@ -7,7 +7,9 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "playwright test"
+    "test": "playwright test",
+    "version": "changeset version && pnpm build",
+    "release": "changeset publish"
   },
   "keywords": [
     "playwright",
@@ -37,6 +39,7 @@
     "README.md"
   ],
   "devDependencies": {
+    "@changesets/cli": "^2.29.5",
     "@playwright/test": "^1.54.1",
     "@types/node": "^24.0.14",
     "ts-node": "^10.9.2",
