@@ -32,6 +32,4 @@ pnpm add tabulon
 npm install tabulon
 # or
 yarn add tabulon
-
-
 ```

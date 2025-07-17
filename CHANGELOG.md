@@ -1,5 +1,13 @@
 # tabulon
 
+## 1.0.5
+
+### Patch Changes
+
+- 559cbfd: enhancements
+- update readme
+- b00783e: update readme
+
 ## 1.0.4
 
 ### Patch Changes
