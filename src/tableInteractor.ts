@@ -129,4 +129,28 @@ export class TableInteractor {
       rows,
     };
   }
+
+  /**
+   * Returns the number of data rows in the table.
+   */
+  public async getRowCount(): Promise<number> {
+    await this.ensureTableVisible();
+    return await this.tableLocator.locator('tbody tr').count();
+  }
+
+  /**
+   * Clicks a button or link in a specific cell by row and header.
+   * @param rowIndex Index of the row (0-based)
+   * @param headerText Header of the column containing the button/link
+   * @param selector CSS selector for the button/link inside the cell
+   */
+  public async clickCellAction(rowIndex: number, headerText: string, selector: string): Promise<void> {
+    await this.ensureTableVisible();
+    if (this.headers.length === 0) {
+      await this.initializeHeaders();
+    }
+    const rowLocator = this.tableLocator.locator('tbody tr').nth(rowIndex);
+    const cellLocator = await this.getCellByHeader(rowLocator, headerText);
+    await cellLocator.locator(selector).click();
+  }
 }

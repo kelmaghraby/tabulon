@@ -29,5 +29,13 @@
       </tr>
     </tbody>
   </table>
+  <div id="editMessage" style="display:none; color: green;">Edit clicked!</div>
+  <script>
+    document.querySelectorAll('#usersTable button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('editMessage').style.display = 'block';
+      });
+    });
+  </script>
 </body>
 </html>

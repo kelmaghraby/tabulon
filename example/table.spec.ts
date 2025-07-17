@@ -87,4 +87,22 @@ test.describe('Tabulon TableInteractor', () => {
     expect(data.headers).toContain('Status');
     expect(data.rows[0].Status).toBe('Active');
   });
+
+  test('should return the correct row count', async ({ page }) => {
+    const table = new TableInteractor(page.locator('#usersTable'));
+    const rowCount = await table.getRowCount();
+    expect(rowCount).toBe(2); // Assuming there are 2 rows in the example table
+  });
+
+  test('should click the Edit button in the Actions column', async ({ page }) => {
+    const table = new TableInteractor(page.locator('#usersTable'));
+    await table.initializeHeaders();
+    // Click the Edit button in the first row (rowIndex 0) in the Actions column
+    await table.clickCellAction(0, 'Actions', 'button');
+    // After clicking, check for a visible change or side effect
+    // For example, assume clicking Edit shows an alert or changes a cell value
+    // Here, we'll check if an element with id #editMessage appears
+    const editMessage = page.locator('#editMessage');
+    await expect(editMessage).toBeVisible();
+  });
 });
