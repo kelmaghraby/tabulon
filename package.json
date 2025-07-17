@@ -1,6 +1,6 @@
 {
   "name": "tabulon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Playwright utility for interacting with and extracting structured data from HTML tables using logical selectors.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
