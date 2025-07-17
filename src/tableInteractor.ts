@@ -8,15 +8,24 @@ export class TableInteractor {
   private tableLocator: Locator;
   private headerLocators: Locator[] = [];
   private headers: string[] = [];
+  private tableVisible = false;
 
   constructor(tableLocator: Locator) {
     this.tableLocator = tableLocator;
+  }
+
+  private async ensureTableVisible(): Promise<void> {
+    if (!this.tableVisible) {
+      await this.tableLocator.waitFor({ state: 'visible' });
+      this.tableVisible = true;
+    }
   }
 
   /**
    * Initializes and stores the table headers.
    */
   public async initializeHeaders(): Promise<void> {
+    await this.ensureTableVisible();
     this.headerLocators = await this.tableLocator.locator('thead th').all();
     this.headers = await Promise.all(
       this.headerLocators.map(async (header) => {
@@ -34,6 +43,7 @@ export class TableInteractor {
   public async findRowByText(
     searchText: string | RegExp
   ): Promise<Locator | null> {
+    await this.ensureTableVisible();
     const rows = await this.tableLocator.locator('tbody tr').all();
     for (const row of rows) {
       const text = await row.textContent();
@@ -59,6 +69,7 @@ export class TableInteractor {
     rowLocator: Locator,
     headerText: string
   ): Promise<Locator> {
+    await this.ensureTableVisible();
     if (this.headers.length === 0) {
       await this.initializeHeaders();
     }
@@ -74,7 +85,11 @@ export class TableInteractor {
    * @param rowLocator The row to query
    * @param index Column index (0-based)
    */
-  public getCellByIndex(rowLocator: Locator, index: number): Locator {
+  public async getCellByIndex(
+    rowLocator: Locator,
+    index: number
+  ): Promise<Locator> {
+    await this.ensureTableVisible();
     return rowLocator.locator('td').nth(index);
   }
 
@@ -82,6 +97,7 @@ export class TableInteractor {
    * Extracts all data from the table as an array of objects.
    */
   public async extractTableData(): Promise<TableData> {
+    await this.ensureTableVisible();
     if (this.headers.length === 0) {
       await this.initializeHeaders();
     }
