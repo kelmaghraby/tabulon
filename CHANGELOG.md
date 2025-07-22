@@ -1,5 +1,11 @@
 # tabulon
 
+## 1.2.2
+
+### Patch Changes
+
+- 375f8bd: adjust tests
+
 ## 1.2.1
 
 ### Patch Changes
