@@ -1,5 +1,11 @@
 # tabulon
 
+## 1.2.3
+
+### Patch Changes
+
+- 661f3ed: adjust license
+
 ## 1.2.2
 
 ### Patch Changes

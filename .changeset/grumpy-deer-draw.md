@@ -1,5 +1,0 @@
----
-"tabulon": patch
----
-
-adjust license
