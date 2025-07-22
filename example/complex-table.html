@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Complex Table Test</title>
+</head>
+<body>
+  <!-- Test table with complex structure -->
+  <table id="complexTable" border="1">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>ISBN</th>
+        <th>Status</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>The Great Gatsby</td>
+        <td>F. Scott Fitzgerald</td>
+        <td>Classic Fiction</td>
+        <td>978-0743273565</td>
+        <td>Available</td>
+        <td>4.5/5</td>
+      </tr>
+      <tr>
+        <td>To Kill a Mockingbird</td>
+        <td>Harper Lee</td>
+        <td>Classic Fiction</td>
+        <td>978-0446310789</td>
+        <td>Checked Out</td>
+        <td>4.8/5</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Test table with empty first column -->
+  <table id="emptyFirstColumnTable" border="1">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Book</th>
+        <th>Author</th>
+        <th>Available</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td>1984</td>
+        <td>George Orwell</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Brave New World</td>
+        <td>Aldous Huxley</td>
+        <td>No</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Test table with nested cells -->
+  <table id="nestedTable" border="1">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Details</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Science Fiction</td>
+        <td>
+          <table>
+            <tr><td>Dune</td><td>Frank Herbert</td></tr>
+            <tr><td>1984</td><td>George Orwell</td></tr>
+          </table>
+        </td>
+        <td><button>Edit</button></td>
+      </tr>
+      <tr>
+        <td>Mystery</td>
+        <td>Sherlock Holmes Collection</td>
+        <td><button>View</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Test table with mixed content -->
+  <table id="mixedTable" border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Pages</th>
+        <th>Published</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>001</td>
+        <td>Adventure novel</td>
+        <td>350</td>
+        <td>2020-03-15</td>
+      </tr>
+      <tr>
+        <td>002</td>
+        <td>Poetry collection</td>
+        <td>120</td>
+        <td>2021-07-22</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="testResults"></div>
+  <script>
+    // Add some interactive elements for testing
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const results = document.getElementById('testResults');
+        results.textContent = `Button clicked: ${btn.textContent}`;
+        results.style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html> 
