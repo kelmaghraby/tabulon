@@ -1,5 +1,11 @@
 # tabulon
 
+## 1.2.1
+
+### Patch Changes
+
+- ac1ad37: reduce size of package
+
 ## 1.2.0
 
 ### Minor Changes
