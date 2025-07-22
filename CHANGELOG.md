@@ -1,5 +1,11 @@
 # tabulon
 
+## 1.1.0
+
+### Minor Changes
+
+- b71a2e2: adjust workflows and version
+
 ## 1.0.0
 
 ### Major Changes
