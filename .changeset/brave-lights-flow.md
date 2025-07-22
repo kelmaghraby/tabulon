@@ -1,5 +1,0 @@
----
-"tabulon": major
----
-
-Major release
