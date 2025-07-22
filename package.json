@@ -3,9 +3,14 @@
   "version": "1.2.0",
   "description": "Playwright utility for interacting with and extracting structured data from HTML tables using logical selectors.",
   "main": "dist/index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "pnpm build:clean && pnpm build:optimize && pnpm build:types && pnpm build:optimize-types",
+    "build:clean": "rm -rf dist && mkdir dist",
+    "build:optimize": "esbuild src/index.ts --bundle --minify --format=esm --outfile=dist/index.js --external:@playwright/test",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
+    "build:optimize-types": "node -e \"const fs=require('fs');const path=require('path');const types=fs.readFileSync('dist/types.d.ts','utf8');const tableInteractor=fs.readFileSync('dist/tableInteractor.d.ts','utf8');const combined='import { Locator } from \\\"@playwright/test\\\";\\n\\n'+types.replace('import { Locator } from \\\"@playwright/test\\\";\\n','')+tableInteractor.replace('import { Locator } from \\\"@playwright/test\\\";\\nimport { TableData } from \\\"./types\\\";\\n','');fs.writeFileSync('dist/index.d.ts',combined);fs.unlinkSync('dist/types.d.ts');fs.unlinkSync('dist/tableInteractor.d.ts');\"",
     "dev": "tsc --watch",
     "test": "playwright test",
     "version": "changeset version",
@@ -35,13 +40,13 @@
   },
   "files": [
     "dist",
-    "src",
     "README.md"
   ],
   "devDependencies": {
     "@changesets/cli": "^2.29.5",
     "@playwright/test": "^1.54.1",
     "@types/node": "^24.0.14",
+    "esbuild": "^0.25.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
