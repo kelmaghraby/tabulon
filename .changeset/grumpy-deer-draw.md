@@ -2,4 +2,4 @@
 "tabulon": patch
 ---
 
-reduce size of package
+adjust license
