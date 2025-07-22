@@ -1,5 +1,12 @@
 # tabulon
 
+## 1.2.4
+
+### Patch Changes
+
+- adjust readme
+- 3318373: reduce size of package
+
 ## 1.2.3
 
 ### Patch Changes
