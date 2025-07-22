@@ -19,6 +19,7 @@ jobs:
           version: 10.8.0
       - run: pnpm install
       - run: pnpm changeset version
+      - run: pnpm build
       - name: Clean up changeset files
         run: |
           # Remove all .md files from .changeset directory (except README.md and config.json)

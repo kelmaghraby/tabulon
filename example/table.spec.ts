@@ -1,9 +1,14 @@
 import { test, expect } from '@playwright/test';
-import { TableInteractor } from '../src/tableInteractor';
+import { TableInteractor } from '../dist/index.js';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 test.describe('Tabulon TableInteractor', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`file://${__dirname}/table.html`);
+    await page.goto(`file://${join(__dirname, 'table.html')}`);
   });
 
   test('should get headers correctly', async ({ page }) => {

@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "CommonJS",
-    "lib": ["ESNext", "DOM"],
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020"],
     "declaration": true,
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "Node",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "removeComments": true,
+    "importHelpers": false,
+    "importsNotUsedAsValues": "remove"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
