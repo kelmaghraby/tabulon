@@ -22,6 +22,7 @@ HTML tables can be a pain to automate:
 - Extract the entire table as structured **JSON**
 - Click buttons or fill fields inside any **row/cell**
 - Write clean, readable Playwright tests
+- **🎨 Beautiful colored error messages** for better debugging
 
 ---
 
@@ -65,6 +66,68 @@ test('interact with table data', async ({ page }) => {
   const actionButton = await table.getCellByHeader(userRow, 'Actions');
   await actionButton.click();
 });
+```
+
+---
+
+## 🎨 Colored Error Messages
+
+Tabulon provides beautiful, colored error messages that make debugging much easier. Error messages include:
+
+- **❌ Error details** in red
+- **📋 Context information** in blue  
+- **💡 Helpful suggestions** in yellow
+- **⚠️ Warnings** in yellow
+- **✅ Success messages** in green
+- **ℹ️ Info messages** in cyan
+
+### Example Error Messages
+
+```typescript
+import { TableAssertions, createColoredError } from 'tabulon';
+
+// Automatic colored errors in assertions
+try {
+  await tableAssertions.assertHeaders(['Name', 'Email']);
+} catch (error) {
+  console.log(error.message);
+  // Output:
+  // ❌ ERROR: Expected 2 headers but found 4. Expected: [Name, Email], Actual: [Dish, Chef, Category, Actions]
+  // 📋 Context: Table headers validation failed
+  // 💡 Suggestion: Expected 2 headers but found 4. Check your table header structure.
+}
+
+// Custom colored messages
+console.log(createColoredError(
+  'Custom error message',
+  'Error context',
+  'Helpful suggestion'
+));
+```
+
+### Available Error Utilities
+
+```typescript
+import { 
+  createColoredError,
+  createColoredWarning, 
+  createColoredSuccess,
+  createColoredInfo,
+  createTableError,
+  createSmartError
+} from 'tabulon';
+
+// Different message types
+createColoredError(message, context?, suggestion?);
+createColoredWarning(message, context?);
+createColoredSuccess(message);
+createColoredInfo(message);
+
+// Table-specific errors
+createTableError('headers' | 'rows' | 'columns' | 'cell' | 'data' | 'structure', details, expected?, actual?);
+
+// Smart error that falls back to plain text in CI environments
+createSmartError(message, context?, suggestion?);
 ```
 
 ---

@@ -1,5 +1,11 @@
 # tabulon
 
+## 1.3.0
+
+### Minor Changes
+
+- c732b28: Add assertions and descriptive errors
+
 ## 1.2.4
 
 ### Patch Changes

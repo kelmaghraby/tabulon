@@ -4,6 +4,7 @@
     "module": "ESNext",
     "lib": ["ES2020"],
     "declaration": true,
+    "declarationMap": true,
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
@@ -12,7 +13,9 @@
     "skipLibCheck": true,
     "removeComments": true,
     "importHelpers": false,
-    "importsNotUsedAsValues": "remove"
+    "importsNotUsedAsValues": "remove",
+    "composite": false,
+    "isolatedModules": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
